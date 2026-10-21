@@ -77,3 +77,14 @@ domuslab/
 ├── package.json            # Project dependencies and build scripts
 ├── screenshot.png          # Application preview image
 └── LICENSE                 # Software licensing details
+
+
+## License
+This project is open-source and distributed under the terms of the MIT License. See the LICENSE file for
+comprehensive legal information and usage permissions.
+
+
+## Contacts
+Maintainer: nowii
+GitHub Profile: @nowii-core
+Repository: domuslab
