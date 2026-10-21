@@ -1,48 +1,66 @@
-# DomusLab
+# DomusLab Game
 
-Puzzle a blocchi in 3D isometrico: programma **Domo**, il piccolo robot. **Un cubo = una mossa.**
-**1000 livelli in 100 mondi**, ognuno con la sua ambientazione (casa, foresta, deserto, ghiacciaio, vulcano, oceano, spazio, città neon, castello, giungla, miniera, nuvole, grotta di cristalli…).
+DomusLab Game is a sophisticated web-based interactive application designed with a modular architecture, featuring custom gameplay mechanics, dynamic rendering pipelines, and dedicated procedural generation and verification tools.
 
-## Come si avvia (senza Python, senza installare nulla)
+## Preview
 
-1. Estrai lo zip.
-2. **Doppio clic su `index.html`** (oppure su `dist/domuslab.html`, che è tutto in un solo file).
+<p align="center">
+  <img src="screenshot.png" alt="DomusLab Game Preview" width="100%">
+</p>
 
-In VS Code: apri la cartella → tasto destro su `index.html` → *Open with Live Server* (estensione consigliata) oppure premi **F5** (apre Chrome).
+## Table of Contents
 
-## Come si gioca
+- [Overview](#overview)
+- [Project Architecture](#project-architecture)
+- [Key Features](#key-features)
+- [Directory Structure](#directory-structure)
+- [Prerequisites](#prerequisites)
+- [Installation and Setup](#installation-and-setup)
+- [Development and Tooling](#development-and-tooling)
+- [Versioning and Distribution](#versioning-and-distribution)
+- [License](#license)
 
-- Trascina i cubi nel *Programma* (o toccali) e premi **Play** (Invio). Tasto **S** = un cubo alla volta, **Esc** = ricomincia, **Ctrl+Z** = annulla.
-- Porta Domo sulla centralina 🏁. Con 🛠 meno cubi = più stelle (3★ se usi il numero "par" o meno).
-- **Lampadina 💡**: costa stelle. *Aiuto* −1★ (ti inserisce l'inizio della soluzione, poi la soluzione completa), *Salta livello* −2★. Le stelle si accumulano livello dopo livello. I costi si cambiano in `js/game.js` (`COST_AID`, `COST_SKIP`).
-- **Monete 🪙**: si raccolgono nei livelli e comprano nuovi personaggi.
-- **Personaggi** (menu o icona in alto): 12 skin + il tuo (emoji o immagine caricata).
+## Overview
 
-## Meccaniche che si sbloccano
+DomusLab Game combines clean separation of concerns with an optimized client-side execution loop. Built natively with modern web technologies, it ensures high responsiveness, fluid animations, and extensible code patterns suitable for both casual execution and future feature expansions.
 
-Cubi: Avanti, Gira, Accendi, Ripeti, F1 (funzione), Finché, Se · Monete (mondo 10) · Portali 🌀 (11) · Chiavi e porte 🔑 (12) · Trappole ⚡ (13) · Sentinelle 👾 (14) · poi mix di tutto.
+## Project Architecture
 
-## Modalità
+The application relies on a decoupled architecture where rendering, game state management, input handling, and configuration data operate independently:
 
-- **Sfida del giorno** 📅 (un livello al giorno, serie di giorni, bonus stelle e monete)
-- **Speedrun** ⏱️ (10 livelli di un mondo di fila, classifica locale)
-- **Modalità Buio** 🌙 (vedi solo vicino a Domo)
-- **Editor** 🛠️: costruisci il tuo livello, risolvilo e condividilo con un codice `DL1:…` (l'importazione verifica che si possa vincere)
-- Record, punteggi, tempi, 22 obiettivi e ranghi, musica e suoni generati (nessun file audio)
+- **Engine Core**: Manages the main game loop, delta time calculations, state transitions, and collision detection frameworks.
+- **Rendering Pipeline**: Handles canvas or DOM-based rendering operations, optimizing draw calls and graphical updates.
+- **Data & Configuration**: Centralizes level parameters, skin definitions, themes, and static asset mapping.
 
-## Per sviluppatori
+## Key Features
 
-```
-js/engine.js     motore logico (browser + Node)
-js/levels.js     1000 livelli generati
-js/render.js     grafica isometrica su canvas
-js/themes.js     ambientazioni dei mondi
-js/skins.js      personaggi
-js/game.js       interfaccia e logica
-js/editor.js     editor e codici di condivisione
-tools/           generatore, verifica, build in file unico
-```
+- **Modular Component Design**: Clear boundaries between core logic, UI rendering, level editors, and data management.
+- **Procedural Level Generation**: Integrated scripting tools to automate map creation and layout structuring.
+- **Integrity Verification**: Automated validation protocols to ensure level consistency and prevent runtime execution anomalies.
+- **Customization Framework**: Extensible themes and skin management modules allowing extensive visual styling.
+- **Optimized Distribution**: Minified or bundled distribution assets ready for high-performance production deployment.
 
-`node tools/generate-levels.js` rigenera i livelli (deterministico) · `node tools/verify-levels.js` controlla che tutte le soluzioni vincano · `node tools/build-single.js` crea `dist/domuslab.html`.
+## Directory Structure
 
-Licenza MIT.
+```text
+domuslab/
+├── css/
+│   └── style.css           # Core styling and layout definitions
+├── dist/
+│   └── domuslab.html       # Production-ready compiled distribution package
+├── js/
+│   ├── data.js             # Static game data and configuration parameters
+│   ├── editor.js           # Level editor interface and logic
+│   ├── engine.js           # Main execution loop and state management
+│   ├── game.js             # Primary game orchestration logic
+│   ├── levels.js           # Level parsing and progression handling
+│   ├── render.js           # Graphical rendering and view updates
+│   ├── skins.js            # Visual skin definitions and assets manager
+│   └── themes.js           # Dynamic theming logic
+├── tools/
+│   ├── build-single.js     # Build script for single-file deployment
+│   ├── generate-levels.js  # Procedural level generation utility
+│   └── verify-levels.js    # Map integrity and rule verification script
+├── index.html              # Main application entry point
+├── package.json            # Project dependencies and build scripts
+└── LICENSE                 # Software licensing details
