@@ -1,0 +1,13 @@
+{
+  "name": "domuslab",
+  "version": "1.0.0",
+  "description": "Puzzle a blocchi con 1000 livelli e 100 mondi: programma Domo, il robot di casa. Un cubo = una mossa.",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "start": "node tools/build-single.js",
+    "generate": "node tools/generate-levels.js",
+    "verify": "node tools/verify-levels.js",
+    "build": "node tools/build-single.js"
+  }
+}

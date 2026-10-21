@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="it">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070a18">
+  <title>DomusLab — Puzzle a blocchi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<div id="app">
+  <header class="topbar">
+    <button class="brand" id="btn-home" title="Menu principale">
+      <span class="brand-cube"></span><span class="brand-name">Domus<b>Lab</b></span>
+    </button>
+    <div class="lvl-info">
+      <div class="lvl-world" id="lvl-world">Ingresso</div>
+      <div class="lvl-num" id="lvl-num">Livello 1 <span>/ 1000</span></div>
+    </div>
+    <div class="top-actions">
+      <div class="total-stars" title="Stelle disponibili (servono per gli aiuti)"><svg class="ic"><use href="#i-star"/></svg><span id="total-stars">0</span></div>
+      <div class="total-stars coins" title="Monete (servono per i personaggi)"><svg class="ic"><use href="#i-coin"/></svg><span id="total-coins">0</span></div>
+      <button class="icon-btn" id="btn-skins" title="Personaggi"><svg class="ic"><use href="#i-user"/></svg></button>
+      <button class="icon-btn" id="btn-map" title="Livelli"><svg class="ic"><use href="#i-grid"/></svg></button>
+      <button class="icon-btn" id="btn-settings" title="Impostazioni"><svg class="ic"><use href="#i-gear"/></svg></button>
+    </div>
+  </header>
+
+  <main class="game">
+    <section class="stage-wrap" id="stage-wrap">
+      <canvas id="stage"></canvas>
+      <div class="hud">
+        <div class="chip" id="chip-lamps" title="Luci accese"><svg class="ic"><use href="#i-bulb"/></svg><span id="hud-lamps">0/0</span></div>
+        <div class="chip" id="chip-blocks" title="Cubi usati / limite"><svg class="ic"><use href="#i-cube"/></svg><span id="hud-blocks">0/0</span></div>
+        <div class="chip" id="chip-coins" title="Monete raccolte"><svg class="ic"><use href="#i-coin"/></svg><span id="hud-coins">0/0</span></div>
+        <div class="chip" id="chip-time" title="Tempo"><svg class="ic"><use href="#i-clock"/></svg><span id="hud-time">0:00</span></div>
+        <div class="chip" id="chip-par" title="Con questo numero di cubi (o meno) ottieni 3 stelle"><svg class="ic"><use href="#i-star"/></svg><span id="hud-par">3★ ≤ 0</span></div>
+      </div>
+      <div class="stage-btns">
+        <button class="icon-btn" id="btn-fog" title="Modalità Buio"><svg class="ic"><use href="#i-moon"/></svg></button>
+        <button class="icon-btn" id="btn-tip" title="Come funziona"><svg class="ic"><use href="#i-help"/></svg></button>
+      </div>
+      <div class="mode-badge" id="mode-badge"></div>
+      <div class="toast" id="toast"></div>
+      <div class="tipcard" id="tipcard">
+        <div class="tip-title" id="tip-title"></div>
+        <div class="tip-text" id="tip-text"></div>
+        <button class="btn primary sm" id="tip-ok">Ho capito</button>
+      </div>
+    </section>
+
+    <aside class="editor" id="editor">
+      <div class="panel palette" id="palette"></div>
+      <div class="panel lanes" id="lanes">
+        <div class="lane" id="lane-main-wrap">
+          <div class="lane-h"><span class="dot"></span>Programma<small>premi Play per eseguirlo</small></div>
+          <div class="slot lane-slot" id="lane-main"></div>
+        </div>
+        <div class="lane f1" id="lane-f1-wrap">
+          <div class="lane-h"><span class="dot f1"></span>Funzione F1<small>richiamala con il cubo F1</small></div>
+          <div class="slot lane-slot" id="lane-f1"></div>
+        </div>
+      </div>
+      <div class="panel controls">
+        <button class="btn play" id="btn-play" title="Play (Invio)"><svg class="ic"><use href="#i-play"/></svg><span>Play</span></button>
+        <button class="btn" id="btn-step" title="Un cubo alla volta"><svg class="ic"><use href="#i-step"/></svg></button>
+        <button class="btn" id="btn-reset" title="Ricomincia (Esc)"><svg class="ic"><use href="#i-reset"/></svg></button>
+        <button class="btn" id="btn-undo" title="Annulla (Ctrl+Z)"><svg class="ic"><use href="#i-undo"/></svg></button>
+        <button class="btn" id="btn-speed" title="Velocità">1×</button>
+        <button class="btn hint" id="btn-hint" title="Aiuto (costa stelle)"><svg class="ic"><use href="#i-bulb"/></svg></button>
+        <button class="btn" id="btn-clear" title="Svuota il programma"><svg class="ic"><use href="#i-trash"/></svg></button>
+      </div>
+    </aside>
+  </main>
+</div>
+
+<!-- Schermata titolo -->
+<div class="ov show title" id="ov-title">
+  <div class="floaters"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+  <div class="title-card">
+    <div class="logo-block"><svg class="ic"><use href="#i-cube"/></svg></div>
+    <h1>Domus<b>Lab</b></h1>
+    <p>Programma Domo, il piccolo robot. Un cubo = una mossa.<br><span id="title-sub">1000 livelli in 100 mondi, sempre più difficili.</span></p>
+    <div class="title-btns">
+      <button class="btn play big" id="title-play"><svg class="ic"><use href="#i-play"/></svg><span id="title-play-label">Gioca</span></button>
+      <button class="btn big" id="title-levels"><svg class="ic"><use href="#i-grid"/></svg><span>Livelli</span></button>
+    </div>
+    <div class="title-grid">
+      <button class="btn" id="title-daily"><span></span><span id="title-daily-label">Sfida del giorno</span></button>
+      <button class="btn" id="title-speed"><span>⏱</span><span>Speedrun</span></button>
+      <button class="btn" id="title-editor"><span>🛠️</span><span>Editor</span></button>
+      <button class="btn" id="title-skins"><span></span><span>Personaggi</span></button>
+      <button class="btn" id="title-records"><span></span><span>Record</span></button>
+      <button class="btn" id="title-settings"><span></span><span>Impostazioni</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Mappa livelli -->
+<div class="ov" id="ov-map">
+  <div class="modal wide">
+    <div class="modal-h"><h2>Livelli</h2><div class="jump"><input id="map-jump" type="number" min="1" max="1000" placeholder="Vai al livello…" inputmode="numeric"><button class="btn sm" id="map-go">Vai</button></div><button class="icon-btn" data-close="ov-map" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b" id="map-body"></div>
+  </div>
+</div>
+
+<!-- Vittoria -->
+<div class="ov" id="ov-win">
+  <div class="modal win">
+    <div class="win-title" id="win-title">Livello completato!</div>
+    <div class="win-stars" id="win-stars"><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg><svg class="ic"><use href="#i-star"/></svg></div>
+    <div class="win-stats" id="win-stats"></div>
+    <div class="win-btns">
+      <button class="btn" id="win-retry"><svg class="ic"><use href="#i-reset"/></svg><span>Riprova</span></button>
+      <button class="btn" id="win-map"><svg class="ic"><use href="#i-grid"/></svg><span>Livelli</span></button>
+      <button class="btn play" id="win-next"><span id="win-next-label">Prossimo</span><svg class="ic"><use href="#i-play"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<!-- Impostazioni -->
+<div class="ov" id="ov-settings">
+  <div class="modal">
+    <div class="modal-h"><h2>Impostazioni</h2><button class="icon-btn" data-close="ov-settings" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b settings">
+      <label class="row"><span>Suoni</span><input type="checkbox" id="set-sound" checked></label>
+      <label class="row"><span>Musica d'ambiente</span><input type="checkbox" id="set-music"></label>
+      <label class="row"><span>Modalità Buio <small class="muted">(vedi solo vicino a Domo)</small></span><input type="checkbox" id="set-fog"></label>
+      <label class="row"><span>Sblocca tutti i livelli</span><input type="checkbox" id="set-unlock"></label>
+      <button class="btn" id="set-skins"><span></span><span>Cambia personaggio</span></button>
+      <button class="btn danger" id="set-reset">Azzera i progressi</button>
+      <p class="muted">I progressi sono salvati in questo browser.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Personaggi -->
+<div class="ov" id="ov-skins">
+  <div class="modal wide">
+    <div class="modal-h"><h2>Personaggi</h2><div class="wallet-mini"><svg class="ic"><use href="#i-coin"/></svg><b id="skins-coins">0</b></div><button class="icon-btn" data-close="ov-skins" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b">
+      <div class="skin-grid" id="skin-grid"></div>
+      <div class="custom-box">
+        <h3>Il tuo personaggio</h3>
+        <p class="muted">Scrivi un'emoji (o due lettere) oppure carica un'immagine: apparirà al posto di Domo.</p>
+        <div class="custom-row">
+          <input id="custom-emoji" maxlength="4" placeholder="🐸" value="🙂">
+          <button class="btn sm" id="custom-emoji-use">Usa emoji</button>
+          <label class="btn sm file-btn">Carica immagine<input type="file" id="custom-file" accept="image/*" hidden></label>
+          <button class="btn sm" id="custom-img-clear">Rimuovi immagine</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Aiuto (lampadina) -->
+<div class="ov" id="ov-hint">
+  <div class="modal small hintbox">
+    <div class="modal-h"><h2>💡 Serve una mano?</h2><button class="icon-btn" data-close="ov-hint" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b">
+      <p class="muted" id="hint-balance"></p>
+      <button class="btn hint-opt" id="hint-aid"><span class="ho-t">Aiuto</span><span class="ho-d" id="hint-aid-d"></span><span class="ho-c" id="hint-aid-c"></span></button>
+      <button class="btn hint-opt" id="hint-skip"><span class="ho-t">Salta il livello</span><span class="ho-d">Passi al prossimo senza stelle. Potrai tornarci.</span><span class="ho-c" id="hint-skip-c"></span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Record / obiettivi -->
+<div class="ov" id="ov-records">
+  <div class="modal wide">
+    <div class="modal-h"><h2>Record e obiettivi</h2><button class="icon-btn" data-close="ov-records" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b" id="records-body"></div>
+  </div>
+</div>
+
+<!-- Speedrun -->
+<div class="ov" id="ov-speed">
+  <div class="modal small">
+    <div class="modal-h"><h2>⏱️ Speedrun</h2><button class="icon-btn" data-close="ov-speed" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b">
+      <p class="muted">Completa i 10 livelli di un mondo uno dopo l'altro, il più in fretta possibile. Niente aiuti. Il cronometro non si ferma mai!</p>
+      <label class="row2"><span>Mondo</span><input id="speed-world" type="number" min="1" max="100" value="1"></label>
+      <div id="speed-top" class="muted"></div>
+      <button class="btn play big" id="speed-go" style="width:100%;margin-top:14px"><svg class="ic"><use href="#i-play"/></svg><span>Via!</span></button>
+    </div>
+  </div>
+</div>
+
+<!-- Editor livelli -->
+<div class="ov editor-ov" id="ov-editor">
+  <div class="ed">
+    <div class="ed-head">
+      <h2>🛠️ Editor livelli</h2>
+      <div class="ed-head-btns">
+        <button class="btn sm" id="ed-new">Nuovo</button>
+        <button class="btn sm" id="ed-save">Salva</button>
+        <button class="btn sm" id="ed-load">I miei livelli</button>
+        <button class="btn sm" id="ed-import">Importa codice</button>
+        <button class="icon-btn" data-close="ov-editor" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button>
+      </div>
+    </div>
+    <div class="ed-body">
+      <div class="ed-left">
+        <div class="ed-tools" id="ed-tools"></div>
+        <div class="ed-gridwrap"><div class="ed-grid" id="ed-grid"></div></div>
+        <div class="ed-size">
+          <label>Larghezza <input id="ed-w" type="number" min="3" max="14" value="8"></label>
+          <label>Altezza <input id="ed-h" type="number" min="3" max="14" value="8"></label>
+          <label>Ambiente <select id="ed-theme"></select></label>
+        </div>
+      </div>
+      <div class="ed-right">
+        <div class="ed-preview"><canvas id="ed-canvas"></canvas></div>
+        <div class="ed-opts">
+          <label>Nome <input id="ed-name" maxlength="28" placeholder="Il mio livello"></label>
+          <label>Limite cubi <input id="ed-limit" type="number" min="1" max="60" value="12"></label>
+          <div class="ed-allowed" id="ed-allowed"></div>
+          <div class="ed-status" id="ed-status"></div>
+          <div class="ed-actions">
+            <button class="btn play" id="ed-test"><svg class="ic"><use href="#i-play"/></svg><span>Prova e risolvi</span></button>
+            <button class="btn" id="ed-share" disabled>Copia codice</button>
+          </div>
+          <p class="muted">Per condividere un livello devi prima risolverlo tu: così sappiamo che si può vincere.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Importa codice -->
+<div class="ov" id="ov-import">
+  <div class="modal">
+    <div class="modal-h"><h2>Importa o condividi</h2><button class="icon-btn" data-close="ov-import" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b">
+      <p class="muted" id="import-help">Incolla un codice <b>DL1:…</b> ricevuto da un amico.</p>
+      <textarea id="import-text" rows="5" placeholder="DL1:..."></textarea>
+      <div class="modal-f" style="padding:12px 0 0">
+        <button class="btn" id="import-edit">Apri nell'editor</button>
+        <button class="btn primary" id="import-play">Gioca</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- I miei livelli -->
+<div class="ov" id="ov-mine">
+  <div class="modal">
+    <div class="modal-h"><h2>I miei livelli</h2><button class="icon-btn" data-close="ov-mine" title="Chiudi"><svg class="ic"><use href="#i-x"/></svg></button></div>
+    <div class="modal-b" id="mine-body"></div>
+  </div>
+</div>
+
+<div class="ach-toast" id="ach-toast"></div>
+
+<!-- Conferma -->
+<div class="ov" id="ov-confirm">
+  <div class="modal small">
+    <div class="modal-h"><h2 id="confirm-title">Sei sicuro?</h2></div>
+    <div class="modal-b"><p id="confirm-text"></p></div>
+    <div class="modal-f"><button class="btn" id="confirm-no">Annulla</button><button class="btn primary" id="confirm-yes">Conferma</button></div>
+  </div>
+</div>
+
+<div id="ghost" class="ghost"></div>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-up" viewBox="0 0 24 24"><path d="M12 20V5M5.5 11.5 12 5l6.5 6.5"/></symbol>
+    <symbol id="i-left" viewBox="0 0 24 24"><path d="M9 4 4 9l5 5"/><path d="M4 9h9a7 7 0 0 1 7 7v4"/></symbol>
+    <symbol id="i-right" viewBox="0 0 24 24"><path d="m15 4 5 5-5 5"/><path d="M20 9h-9a7 7 0 0 0-7 7v4"/></symbol>
+    <symbol id="i-bulb" viewBox="0 0 24 24"><path d="M9 18h6M10 21.5h4"/><path d="M12 2.5a6.5 6.5 0 0 0-3.7 11.8c.6.5 1 1.2 1 2V17h5.4v-.7c0-.8.4-1.5 1-2A6.5 6.5 0 0 0 12 2.5z"/></symbol>
+    <symbol id="i-rep" viewBox="0 0 24 24"><path d="m17 2 4 4-4 4"/><path d="M3 11V9.5A3.5 3.5 0 0 1 6.5 6H21"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1.5a3.5 3.5 0 0 1-3.5 3.5H3"/></symbol>
+    <symbol id="i-while" viewBox="0 0 24 24"><path d="M20.5 12a8.5 8.5 0 1 1-2.6-6.1"/><path d="M20.5 3.5v5h-5"/></symbol>
+    <symbol id="i-if" viewBox="0 0 24 24"><circle cx="6" cy="5.5" r="2.5"/><circle cx="6" cy="18.5" r="2.5"/><circle cx="18" cy="8.5" r="2.5"/><path d="M6 8v8M18 11a7 7 0 0 1-7 7H8.5"/></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></symbol>
+    <symbol id="i-pause" viewBox="0 0 24 24"><path d="M7 4.5h3.5v15H7zM13.5 4.5H17v15h-3.5z" fill="currentColor"/></symbol>
+    <symbol id="i-step" viewBox="0 0 24 24"><path d="M5 4.5v15l10-7.5z" fill="currentColor"/><path d="M19 5v14"/></symbol>
+    <symbol id="i-reset" viewBox="0 0 24 24"><path d="M3.5 12a8.5 8.5 0 1 0 2.6-6.1"/><path d="M3.5 3.5v5h5"/></symbol>
+    <symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M9 7V4h6v3M6.5 7l1 13h9l1-13"/></symbol>
+    <symbol id="i-grid" viewBox="0 0 24 24"><rect x="3.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.5"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.5"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.5"/></symbol>
+    <symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2.5v3M12 18.5v3M2.5 12h3M18.5 12h3M5.3 5.3l2.1 2.1M16.6 16.6l2.1 2.1M18.7 5.3l-2.1 2.1M7.4 16.6l-2.1 2.1"/></symbol>
+    <symbol id="i-star" viewBox="0 0 24 24"><path d="m12 2.8 2.8 5.9 6.4.8-4.7 4.4 1.2 6.4L12 17.2 6.3 20.3l1.2-6.4L2.8 9.5l6.4-.8z"/></symbol>
+    <symbol id="i-cube" viewBox="0 0 24 24"><path d="M12 2.8 20 7.4v9.2L12 21.2 4 16.6V7.4z"/><path d="M4 7.4 12 12l8-4.6M12 12v9.2"/></symbol>
+    <symbol id="i-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.2 9.3a2.9 2.9 0 0 1 5.6 1c0 1.9-2.8 2.3-2.8 4M12 17.6v.1"/></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></symbol>
+    <symbol id="i-undo" viewBox="0 0 24 24"><path d="M9 14 4 9l5-5"/><path d="M4 9h10.5a5.5 5.5 0 0 1 0 11H11"/></symbol>
+    <symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M20.5 14.2A8.5 8.5 0 0 1 9.8 3.5 8.5 8.5 0 1 0 20.5 14.2z"/></symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.2 2"/></symbol>
+    <symbol id="i-coin" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5.2"/></symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8 10.5V8a4 4 0 0 1 8 0v2.5"/></symbol>
+  </defs>
+</svg>
+
+<script src="js/engine.js"></script>
+<script src="js/levels.js"></script>
+<script src="js/themes.js"></script>
+<script src="js/skins.js"></script>
+<script src="js/data.js"></script>
+<script src="js/render.js"></script>
+<script src="js/game.js"></script>
+<script src="js/editor.js"></script>
+</body>
+</html>
