@@ -1,12 +1,21 @@
 # DomusLab Game
 
+![License: MIT](https://img.shields.io/badge/License-MIT-00b4d8.svg)
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+
 DomusLab Game is a sophisticated web-based interactive application designed with a modular architecture, featuring custom gameplay mechanics, dynamic rendering pipelines, and dedicated procedural generation and verification tools.
+
+---
 
 ## Preview
 
 <p align="center">
   <img src="screenshot.png" alt="DomusLab Game Preview" width="100%">
 </p>
+
+---
 
 ## Table of Contents
 
@@ -19,6 +28,9 @@ DomusLab Game is a sophisticated web-based interactive application designed with
 - [Development and Tooling](#development-and-tooling)
 - [Versioning and Distribution](#versioning-and-distribution)
 - [License](#license)
+- [Contatti](#contatti)
+
+---
 
 ## Overview
 
@@ -63,4 +75,5 @@ domuslab/
 │   └── verify-levels.js    # Map integrity and rule verification script
 ├── index.html              # Main application entry point
 ├── package.json            # Project dependencies and build scripts
+├── screenshot.png          # Application preview image
 └── LICENSE                 # Software licensing details
