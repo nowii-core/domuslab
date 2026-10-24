@@ -1,11 +1,36 @@
 # DomusLab Game
 
-![License: MIT](https://img.shields.io/badge/License-MIT-00b4d8.svg)
-![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=flat&logo=html5&logoColor=white)
-![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=flat&logo=css3&logoColor=white)
-![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=flat&logo=javascript&logoColor=black)
+<p align="center">
+  <b>A Sophisticated Web-Based Interactive Application Built with a Modular Architecture, Custom Gameplay Mechanics, Dynamic Rendering Pipelines, and Procedural Generation Tools</b>
+</p>
 
-DomusLab Game is a sophisticated web-based interactive application designed with a modular architecture, featuring custom gameplay mechanics, dynamic rendering pipelines, and dedicated procedural generation and verification tools.
+<p align="center">
+  <a href="https://github.com/nowii-core/domuslab/blob/main/LICENSE">
+    <img src="https://img.shields.io/badge/License-MIT-007ec6?style=for-the-badge" alt="License">
+  </a>
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" alt="HTML5">
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" alt="CSS3">
+  <img src="https://img.shields.io/badge/JavaScript-ES6%2B-f7df1e?style=for-the-badge&logo=javascript&logoColor=black" alt="JavaScript">
+  <img src="https://img.shields.io/badge/Architecture-Modular-000000?style=for-the-badge" alt="Modular Architecture">
+</p>
+
+<p align="center">
+  <a href="#-overview">Overview</a> •
+  <a href="#-key-features">Features</a> •
+  <a href="#-tech-stack">Tech Stack</a> •
+  <a href="#-project-architecture">Architecture</a> •
+  <a href="#-quick-start">Quick Start</a> •
+  <a href="#-development-and-tooling">Tooling</a> •
+  <a href="#-contact">Contact</a>
+</p>
+
+---
+
+</div>
+
+## Overview
+
+**DomusLab Game** combines a clean separation of concerns with an optimized client-side execution loop. Built natively with modern web technologies, it ensures high responsiveness, fluid animations, and extensible code patterns suitable for both casual execution and future feature expansions.
 
 ---
 
@@ -15,50 +40,35 @@ DomusLab Game is a sophisticated web-based interactive application designed with
   <img src="screenshot.png" alt="DomusLab Game Preview" width="100%">
 </p>
 
----
-
-## Table of Contents
-
-- [Overview](#overview)
-- [Project Architecture](#project-architecture)
-- [Key Features](#key-features)
-- [Directory Structure](#directory-structure)
-- [Prerequisites](#prerequisites)
-- [Installation and Setup](#installation-and-setup)
-- [Development and Tooling](#development-and-tooling)
-- [Versioning and Distribution](#versioning-and-distribution)
-- [License](#license)
-- [Contacts](#contacts)
-
----
-
-## Overview
-
-DomusLab Game combines clean separation of concerns with an optimized client-side execution loop. Built natively with modern web technologies, it ensures high responsiveness, fluid animations, and extensible code patterns suitable for both casual execution and future feature expansions.
-
----
-
-## Project Architecture
-
-The application relies on a decoupled architecture where rendering, game state management, input handling, and configuration data operate independently:
-
-- **Engine Core**: Manages the main game loop, delta time calculations, state transitions, and collision detection frameworks.
-- **Rendering Pipeline**: Handles canvas or DOM-based rendering operations, optimizing draw calls and graphical updates.
-- **Data & Configuration**: Centralizes level parameters, skin definitions, themes, and static asset mapping.
+> **Live Demo:** [nowii-core.github.io/domuslab/](https://nowii-core.github.io/domuslab/)
 
 ---
 
 ## Key Features
 
-- **Modular Component Design**: Clear boundaries between core logic, UI rendering, level editors, and data management.
-- **Procedural Level Generation**: Integrated scripting tools to automate map creation and layout structuring.
-- **Integrity Verification**: Automated validation protocols to ensure level consistency and prevent runtime execution anomalies.
-- **Customization Framework**: Extensible themes and skin management modules allowing extensive visual styling.
-- **Optimized Distribution**: Minified or bundled distribution assets ready for high-performance production deployment.
+- **Modular Component Design:** Clear boundaries between core logic, UI rendering, level editors, and data management.
+- **Procedural Level Generation:** Integrated scripting tools to automate map creation and layout structuring.
+- **Integrity Verification:** Automated validation protocols to ensure level consistency and prevent runtime execution anomalies.
+- **Customization Framework:** Extensible themes and skin management modules allowing extensive visual styling.
+- **Optimized Distribution:** Minified or bundled distribution assets ready for high-performance production deployment.
 
 ---
 
-## Directory Structure
+## Tech Stack
+
+### Frontend
+- **HTML5:** Semantic structure for the application entry point.
+- **CSS3:** Core styling, layout definitions, and dynamic theming.
+- **JavaScript (ES6+):** Main execution loop, state management, graphical rendering, and game orchestration.
+
+### Development & Tooling
+- **Node.js:** Required to run procedural generation, verification suites, and build scripts.
+
+---
+
+## Project Architecture
+
+The application relies on a decoupled architecture where rendering, game state management, input handling, and configuration data operate independently.
 
 ```text
 domuslab/
@@ -87,32 +97,27 @@ domuslab/
 
 ---
 
-## Prerequisites
+## Quick Start
 
-Before setting up the environment locally, ensure you have the following installed:
-- A modern web browser with HTML5 and ES6+ JavaScript support (Google Chrome, Mozilla Firefox, Microsoft Edge, or Safari).
-- Node.js (version 16.x or higher recommended) if you intend to run development tools, build scripts, or level generators.
+### Prerequisites
+- A modern web browser with HTML5 and ES6+ JavaScript support (Chrome, Firefox, Edge, or Safari).
+- **Node.js** (version 16.x or higher) if you intend to run development tools or build scripts.
 
----
+### Installation
 
-## Installation and Setup
-
-1. Clone the repository to your local machine:
+1. **Clone the repository:**
    ```bash
    git clone https://github.com/nowii-core/domuslab.git
-   ```
-
-2. Navigate into the project root directory:
-   ```bash
    cd domuslab
    ```
 
-3. Install project dependencies (if utilizing build tools):
+2. **Install project dependencies (optional, for tooling):**
    ```bash
    npm install
    ```
 
-4. Launch the application locally by opening `index.html` directly in your browser or by deploying a local static file server.
+3. **Run the application:**
+   Launch the application locally by opening `index.html` directly in your browser, or by using a local static file server.
 
 ---
 
@@ -120,43 +125,35 @@ Before setting up the environment locally, ensure you have the following install
 
 The repository includes utility scripts located in the `tools/` directory to support maintenance and level design:
 
-- **Level Generation**: Run the generator script to programmatically build new map structures:
+- **Level Generation:** Programmatically build new map structures:
   ```bash
   node tools/generate-levels.js
   ```
-- **Level Verification**: Execute the verification suite to ensure all map configurations are error-free:
+- **Level Verification:** Execute the verification suite to ensure all map configurations are error-free:
   ```bash
   node tools/verify-levels.js
   ```
-- **Single-File Compilation**: Bundle the application into a standalone distribution artifact:
+- **Single-File Compilation:** Bundle the application into a standalone distribution artifact:
   ```bash
   node tools/build-single.js
   ```
 
 ---
 
-## Versioning and Distribution
-
-Releases and packaged builds are managed directly through GitHub Releases. To deploy a new version:
-1. Tag the appropriate commit using semantic versioning (e.g., `v1.0.0`).
-2. Attach compiled distribution files or compressed archives from the `dist/` directory to the release payload.
-
----
-
 ## License
 
-This project is open-source and distributed under the terms of the MIT License. See the [LICENSE](LICENSE) file for comprehensive legal information and usage permissions.
+This project is distributed under the **MIT** license. See the [`LICENSE`](./LICENSE) file for more information.
 
 ---
 
-## Contacts
+## Contact & Support
 
-<p align="left">
-  <a href="https://github.com/nowii-core">
-    <img src="https://img.shields.io/badge/GitHub-@nowii--core-181717?style=for-the-badge&logo=github&logoColor=white" alt="GitHub Profile">
-  </a>
-</p>
+- **Maintainer:** [@nowii-core](https://github.com/nowii-core)
+- **Repository:** [domuslab](https://github.com/nowii-core/domuslab)
+- **Bug Reports & Feature Requests:** If you encounter an issue or would like to suggest an improvement, open an [Issue](https://github.com/nowii-core/domuslab/issues) or submit a [Pull Request](https://github.com/nowii-core/domuslab/pulls).
 
-- **Maintainer**: nowii
-- **GitHub Profile**: [@nowii-core](https://github.com/nowii-core)
-- **Repository**: [domuslab](https://github.com/nowii-core/domuslab)
+---
+
+<div align="center">
+  <sub>Developed by <b>nowii-core</b></sub>
+</div>
